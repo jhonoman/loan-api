@@ -45,4 +45,13 @@ public class LoanController {
         ApproveLoanResponse response = loanService.approveLoan(request);
         return ResponseEntity.ok(response);
     }
+
+    /**
+     * Step 3: Reject a previously submitted loan application.
+     */
+    @PostMapping("/reject")
+    public ResponseEntity<ApproveLoanResponse> rejectLoan(@Valid @RequestBody ApproveLoanRequest request) {
+        ApproveLoanResponse response = loanService.rejectLoan(request);
+        return ResponseEntity.ok(response);
+    }
 }
