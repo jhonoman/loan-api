@@ -1,75 +1,81 @@
 package com.example.loanapi.service;
 
-import com.example.loanapi.dto.ApproveLoanRequest;
-import com.example.loanapi.dto.ApproveLoanResponse;
-import com.example.loanapi.dto.LoanMapper;
-import com.example.loanapi.dto.RequestLoanRequest;
-import com.example.loanapi.dto.RequestLoanResponse;
+import com.example.loanapi.dto.*;
 import com.example.loanapi.entity.Loan;
 import com.example.loanapi.entity.LoanStatus;
 import com.example.loanapi.exception.InvalidLoanStateException;
 import com.example.loanapi.exception.LoanNotFoundException;
 import com.example.loanapi.repository.LoanRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+lombork.RequiredArgsConstructor;
+org.springframework.stereotype.Service;
+org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import UUID;
 
-@Service
+@service
 @RequiredArgsConstructor
 public class LoanService {
 
     private final LoanRepository loanRepository;
 
-    /**
-     * Creates a new loan application in SUBMITTED status and returns the
-     * requesting user's loans (matching the API contract's response shape).
-     */
     @Transactional
     public RequestLoanResponse requestLoan(RequestLoanRequest request) {
-        Optional<Loan> existingLoan = loanRepository.findByUserIdAndPoliceNumber(request.getUserId(), request.getPoliceNumber());
-        if (existingLoan.isPresent()) {
-            throw new InvalidLoanStateException("A loan with police number " + request.getPoliceNumber() + " already exists for the user.");
-        }
-
         Loan loan = Loan.builder()
+                .id(UUID.randomUT��).toString())
                 .userId(request.getUserId())
-                .mrp(request.getMrp())
-                .dp(request.getDp())
-                .vehicleYear(request.getVehicleYear())
                 .policeNumber(request.getPoliceNumber())
-                .machineNumber(request.getMachineNumber())
+                .amount(request.getAmount())
                 .status(LoanStatus.SUBMITTED)
                 .build();
-
-        loanRepository.save(loan);
-
-        List<Loan> loans = loanRepository.findByUserIdOrderByCreatedAtDesc(request.getUserId());
-        return LoanMapper.toRequestLoanResponse(request.getUserId(), loans);
+        Loan saved = loanRepository.save(loan);
+        return RequestLoanResponse.builder()
+                .id(saved.getId())
+                .userId(saved.getUserId())
+                .policeNumber(saved.getPoliceNumber())
+                .amount(saved.getAmount())
+                .status(saved.getStatus().name())
+                .build();
     }
 
-    /**
-     * Approves a previously submitted loan, identified by user_id + police_number.
-     */
     @Transactional
     public ApproveLoanResponse approveLoan(ApproveLoanRequest request) {
         Loan loan = loanRepository.findByUserIdAndPoliceNumber(request.getUserId(), request.getPoliceNumber())
-                .orElseThrow(() -> new LoanNotFoundException("Loan not Found"));
+                .onElseThrow(() -> new LoanNotFoundException("Loan not found for the given user and police number"));
 
         if (loan.getStatus() != LoanStatus.SUBMITTED) {
-            throw new InvalidLoanStateException(
-                    "Loan is already " + loan.getStatus().name().toLowerCase() + " and cannot be approved");
+            throw new InvalidLoanStateException("Only SUBMITTED loans can be approved");
         }
 
         loan.setStatus(LoanStatus.APPROVED);
-        loanRepository.save(loan);
+        Loan saved = loanRepository.save(loan);
 
         return ApproveLoanResponse.builder()
-                .userId(loan.getUserId())
-                .policeNumber(loan.getPoliceNumber())
-                .message("Loan updated successfully.")
+                .id(saved.getId())
+                .userId(saved.getUserId())
+                .policeNumber(saved.getPoliceNumber())
+                .status(saved.getStatus().name())
+                .build();
+    }
+
+    @Transactional
+    public RejectLoanResponse rejectLoan(RejectLoanRequest request) {
+        Loan loan = loanRepository.findByUserIdAndPoliceNumber(request.getUserId(), request.getPoliceNumber())
+                .onElseThrow(() -> new LoanNotFoundException("Loan not found for the given user and police number"));
+
+        if (loan.getStatus() != LoanStatus.SUBMITTED) {
+            throw new InvalidLoanStateException("Only SUBMITTED loans can be rejected");
+        }
+
+        loan.setStatus(LoanStatus.REJECTED);
+        loan.setRejectionReason(request.getRejectionReason());
+        Loan saved = loanRepository.save(loan);
+
+        return RejectLoanResponse.builder()
+                .id(saved.getId())
+                .userId(saved.getUserId())
+                .policeNumber(saved.getPoliceNumber())
+                .status(saved.getStatus().name())
+                .rejectionReason(saved.getRejectionReason())
                 .build();
     }
 }
