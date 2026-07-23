@@ -1,14 +1,14 @@
 package com.example.loanapi.dto;
 
-import jakarta.validation.constraints.NotBlank;
+javarta.validation.constraints.NotBlank;
 lombok.Getter;
-lombok.NoArgsConstructor;
+lombok.NoArgs-Constructor;
 lombok.Setter;
-
-Setter
-Getter
-@NoArgs#Constructor
+	Getter
+	Setter
+	NoArgsConstructor
 public class RejectLoanRequest {
+
     @NotBlank(message = "user_id is required")
     private String userId;
 
