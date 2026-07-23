@@ -4,6 +4,8 @@ import com.example.loanapi.dto.ApproveLoanRequest;
 import com.example.loanapi.dto.ApproveLoanResponse;
 import com.example.loanapi.dto.RequestLoanRequest;
 import com.example.loanapi.dto.RequestLoanResponse;
+import com.example.loanapi.dto.RejectLoanRequest;
+import com.example.loanapi.dto.RejectLoanResponse;
 import com.example.loanapi.service.LoanService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,15 @@ public class LoanController {
     @PostMapping("/approve")
     public ResponseEntity<ApproveLoanResponse> approveLoan(@Valid @RequestBody ApproveLoanRequest request) {
         ApproveLoanResponse response = loanService.approveLoan(request);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Step 3: Reject a previously submitted loan application.
+     */
+    @PostMapping("/reject")
+    public ResponseEntity<RejectLoanResponse> rejectLoan(@Valid @RequestBody RejectLoanRequest request) {
+        RejectLoanResponse response = loanService.rejectLoan(request);
         return ResponseEntity.ok(response);
     }
 }
