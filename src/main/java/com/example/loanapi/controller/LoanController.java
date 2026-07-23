@@ -47,7 +47,7 @@ public class LoanController {
     }
 
     /**
-     * Step 3: Reject a previously submitted loan application.
+     * Step 3: Reject a loan application.
      */
     @PostMapping("/reject")
     public ResponseEntity<ApproveLoanResponse> rejectLoan(@Valid @RequestBody ApproveLoanRequest request) {
