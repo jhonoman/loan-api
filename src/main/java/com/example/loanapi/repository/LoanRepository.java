@@ -2,14 +2,11 @@ package com.example.loanapi.repository;
 
 import com.example.loanapi.entity.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface LoanRepository extends JpaRepository<Loan, UUID> {
-
-    List<Loan> findByUserIdOrderByCreatedAtDesc(String userId);
-
-    Optional<Loan> findByUserIdAndPoliceNumber(String userId, String policeNumber);
+$Repository
+public interface LoanRepository extends JpaRepository<Loan, Long> {
+    Optional<Loan> findByPoliceNumberAndUserId(String policeNumber, String userId);
 }
