@@ -1,15 +1,1 @@
-package com.example.loanapi.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ErrorResponse {
-    private String error;
-    private String errorDescription;
-}
+cGFja2FnZSBjb20uZXhhbXBsZS5sb2FuYXBpLmR0bzsKCmltcG9ydCBsb21ib2suKjsKCkBHZXR0ZXIKQFNldHRlcgpATm9BcmdzQ29uc3RydWN0b3IKQEFsbEFyZ3NDb25zdHJ1Y3RvcgpwdWJsaWMgY2xhc3MgRXJyb3JSZXNwb25zZSB7CiAgICBByaXZhdGUgU3RyaW5nIG1lc3NhZ2U7Cn0K

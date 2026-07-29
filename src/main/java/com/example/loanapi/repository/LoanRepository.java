@@ -1,15 +1,10 @@
 package com.example.loanapi.repository;
-
 import com.example.loanapi.entity.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
-import java.util.UUID;
 
-public interface LoanRepository extends JpaRepository<Loan, UUID> {
-
-    List<Loan> findByUserIdOrderByCreatedAtDesc(String userId);
-
+@Repository
+public interface LoanRepository extends JpaRepository<Loan, Long> {
     Optional<Loan> findByUserIdAndPoliceNumber(String userId, String policeNumber);
 }

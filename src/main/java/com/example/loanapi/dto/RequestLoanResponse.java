@@ -1,17 +1,1 @@
-package com.example.loanapi.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
-
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class RequestLoanResponse {
-    private String userId;
-    private List<LoanDto> loans;
-}
+cGFja2FnZSBjb20uZXhhbXBsZS5sb2FuYXBpLmR0bzsKCmltcG9ydCBsb21ib2suKjsKaW1wb3J0IGphdmEubWF0aC5CaWdEZWNpbWFsOwoKQEdldHRlcgpAU2V0dGVyCkBOb0FyZ3NDb25zdHJ1Y3RvcgpAQWxsQXJnc0NvbnN0cnVjdG9yCkBCdWlsZGVyCnB1YmxpYyBjbGFzcyBSZXF1ZXN0TG9hblJlc3BvbnNlIHsKICAgIHByaXZhdGUgTG9uZyBsb2FuSWQ7CiAgICBByaXZhdGUgU3RyaW5nIHVzZXJJZDsKICAgIHByaXZhdGUgU3RyaW5nIHBvbGljZU51bWJlcjsKICAgIHByaXZhdGUgQmlnRGVjaW1hbCBhbW91bnQ7CiAgICBByaXZhdGUgU3RyaW5nIHN0YXR1czsKfQo=
