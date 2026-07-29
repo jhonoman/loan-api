@@ -1,16 +1,1 @@
-package com.example.loanapi.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ApproveLoanResponse {
-    private String userId;
-    private String policeNumber;
-    private String message;
-}
+cGFja2FnZSBjb20uZXhhbXBsZS5sb2FuYXBpLmR0bzsKCmltcG9ydCBsb21ib2suKjsKCkBHZXR0ZXIKQFNldHRlcgpATm9BcmdzQ29uc3RydWN0b3IKQEFsbEFyZ3NDb25zdHJ1Y3RvcgpAQnVpbGRlcgpwdWJsaWMgY2xhc3MgQXBwcm92ZUxvYW5SZXNwb25zZSB7CiAgICBByaXZhdGUgU3RyaW5nIHVzZXJJZDsKICAgIHByaXZhdGUgU3RyaW5nIHBvbGljZU51bWJlcjsKICAgIHByaXZhdGUgU3RyaW5nIHN0YXR1czsKfQo=
